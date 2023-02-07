@@ -3,9 +3,19 @@ package main
 import (
 	"appDB/package/storage"
 	"appDB/package/storage/memDB"
+	"fmt"
 	"reflect"
 	"testing"
+	"time"
 )
+
+func TestMain(m *testing.M){
+	fmt.Println("I will wait")
+	time.Sleep(time.Second * 3)
+	fmt.Println("All right")
+	time.Sleep(time.Second * 2)
+	m.Run()
+}
 
 func TestPostID(t *testing.T){
 	type args struct {
