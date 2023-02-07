@@ -2,7 +2,6 @@ package memDB
 
 import (
 	"appDB/package/storage"
-	"context"
 )
 
 type memoryDB struct{
@@ -47,6 +46,6 @@ func(m *memoryDB) DeletePost(storage.Post) error { // удаление публ�
 }
 
 
-func(m *memoryDB) Close(ctx context.Context){ // удаление публикации по ID
+func(m *memoryDB) Close(){ // удаление публикации по ID
 
 }

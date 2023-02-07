@@ -2,23 +2,25 @@ package main
 
 import (
 	"appDB/package/my_micro_serv"
+	"appDB/package/storage"
 	"appDB/package/storage/memDB"
-	"appDB/package/storage/mongo"
+	// "appDB/package/storage/mongo"
 	"appDB/package/storage/postgres"
+	"fmt"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
-
-	//"net/http"
 )
 
 
 func main(){
 	_ = memDB.New()
-	_ = postgres.New()
-	db := mongo.New()
+	// _ = mongo.New()
+	db := postgres.New()
 	defer db.Close()     // не зыбываем закрыть подключения к БД
 	server := my_micro_serv.New(db)
+	post := storage.PostID(db, 5)
+	fmt.Println(post)
 	ListenAndServe(":8051",server.Router())
 }
 

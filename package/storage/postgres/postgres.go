@@ -21,6 +21,7 @@ func New()*postgresDB{
 	if err != nil{
 		log.Fatal(err)
 	}
+
 	err = pool.Ping(context.Background())
 	if err != nil{
 		log.Fatal(err)
