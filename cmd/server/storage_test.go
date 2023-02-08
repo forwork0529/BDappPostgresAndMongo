@@ -3,19 +3,22 @@ package main
 import (
 	"appDB/package/storage"
 	"appDB/package/storage/memDB"
-	"fmt"
 	"reflect"
 	"testing"
 	"time"
 )
 
-func TestMain(m *testing.M){
+//    -count=1 флаг тменяющий кеширование во втором варианте запуска тестов
+//    go test -run=XXX -bench=. -benchmem - ля бренчмарка и контролем распределения памяти
+
+
+/*func TestMain(m *testing.M){					// ункция для подготовки к тесту setup tear down
 	fmt.Println("I will wait")
 	time.Sleep(time.Second * 3)
 	fmt.Println("All right")
 	time.Sleep(time.Second * 2)
 	m.Run()
-}
+}*/
 
 func TestPostID(t *testing.T){
 	type args struct {
@@ -37,5 +40,14 @@ func TestPostID(t *testing.T){
 				t.Errorf("PostID() = %v, want %v", got, tt.want)
 			}
 		})
+	}
+}
+
+func BenchmarkTestPostId(b *testing.B){
+	var db storage.InstanceDB = memDB.New()
+	time.Sleep(time.Second * 3)               // Работает
+	b.ResetTimer()							  // Работает
+	for i := 0; i < b.N ; i ++ {
+		_ = storage.PostID(db, 1)
 	}
 }
